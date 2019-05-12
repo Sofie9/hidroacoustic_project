@@ -1,0 +1,80 @@
+﻿/*color, position, internal time*/
+#ocean { z-index: 100;}
+.wave {
+    position: absolute;
+    bottom: 0;
+    background: #7ecef4;
+    opacity: 0.5;
+    display: inline-block;
+    height: 15%;
+    width: 10px;
+    position: absolute;
+    z-index: 5 !important;
+    animation-name: dostuff;
+    animation-duration: 2.74159s;
+    animation-iteration-count: infinite;
+    transition-timing-function: ease-in-out;
+}
+.wave_middle {
+    position: absolute;
+    bottom: 0;
+    background: #0068b7;
+    opacity: 0.3;
+    display: inline-block;
+    height: 10%;
+    width: 10px;
+    position: absolute;
+    z-index: 5 !important;
+    animation-name: dostuff_mid;
+    animation-duration: 3.42s;
+    animation-iteration-count: infinite;
+    transition-timing-function: ease-in-out;
+}
+.wave_bottom {
+    position: absolute;
+    bottom: 0;
+    background: #002e73;
+    opacity: 0.8;
+    display: inline-block;
+    height: 5%;
+    width: 10px;
+    position: absolute;
+    z-index: 5 !important;
+    animation-name: dostuff_bot;
+    animation-duration: 2.54s;
+    animation-iteration-count: infinite;
+    transition-timing-function: ease-in-out;
+}
+.wave_light {
+    position: absolute;bottom: 10%;background: #fff;opacity: 0.3;display: inline-block;
+    height: 15%;
+    width: 10px;
+    position: absolute;
+    z-index: 5 !important;
+    animation-name: dostuff_light;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    transition-timing-function: ease-in-out;
+}
+
+/* amplitude animation*/
+@keyframes dostuff {
+    0% {height: 35%;}
+    50% {height: 48%;}
+    100% {height: 35%;}
+}
+@keyframes dostuff_mid {
+    0% {height: 27%;}
+    50% {height: 36%;}
+    100% {height: 27%;}
+}
+@keyframes dostuff_bot {
+    0% {height: 17%;}
+    50% {height: 23%;}
+    100% {height: 17%;}
+}
+@keyframes dostuff_light {
+    0% {height: 1%;bottom: 31%;}
+    50% {height: 4%;bottom: 35%;}
+    100% {height: 1%;bottom: 31%;}
+}

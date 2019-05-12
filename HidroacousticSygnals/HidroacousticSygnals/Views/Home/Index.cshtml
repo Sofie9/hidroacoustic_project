@@ -1,31 +1,118 @@
-﻿@{
+﻿@using HidroacousticSygnals.Core
+@{
     ViewBag.Title = "Home Page";
 }
-
+@Styles.Render("~/Content/main")
 <div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <div class="row">
+        <div clas="col-md-8">
+            <form method="post"  action="@Url.Action("GenerateSound")">
+            
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Координаты источника(x,y,z)</label>
+                    <div class="col-sm-3 content-container">
+                        <div>
+                            <input type="number" class="form-control" name="xSource" placeholder="x">
+                        </div>
+                        <div>
+                            <input type="number" class="form-control" name="ySource" placeholder="y">
+                        </div>
+                        <div>
+                            <input type="number" class="form-control" name="zSource" placeholder="z">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Координаты ГАС(x,y,z)</label>
+                    <div class="col-sm-3 content-container">
+                        <div>
+                            <input type="number" class="form-control" name="xSystem" placeholder="x">
+                        </div>
+                        <div>
+                            <input type="number" class="form-control" name="ySystem" placeholder="y">
+                        </div>
+                        <div>
+                            <input type="number" class="form-control" name="zSystem" placeholder="z">
+                        </div>
+                    </div>
+
+                </div>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Частота излучения (w)</label>
+                <div class="col-sm-6">
+                    <input type="number" class="form-control" name="frequency" placeholder="frequency">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Амплитуда давления (Р)</label>
+                <div class="col-sm-6">
+                    <input type="number" class="form-control" name="pressureAmplitude" placeholder="pressureAmplitude">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Глубина моря (h)</label>
+                <div class="col-sm-6">
+                    <input type="number" class="form-control" name="deep" placeholder="Deep">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-8 sbm-btn">
+                    <button type="submit" class="btn btn-primary">Generate Hidroacoustic Wave</button>
+                </div>
+            </div>
+        </form>
+        </div>
+        @*<div class="col-md-4">
+            <h2>Get more libraries</h2>
+            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2>Web Hosting</h2>
+            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+        </div>*@
+        @*<fieldset class="form-group">
+            <div class="row">
+                <legend class="col-form-label col-sm-2 pt-0"></legend>
+                <div class="col-sm-10">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
+                        <label class="form-check-label" for="gridRadios1">
+                            First radio
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+                        <label class="form-check-label" for="gridRadios2">
+                            Second radio
+                        </label>
+                    </div>
+                    <div class="form-check disabled">
+                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="option3" disabled>
+                        <label class="form-check-label" for="gridRadios3">
+                            Third disabled radio
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </fieldset>*@
+        @*<div class="form-group row">
+            <div class="col-sm-2">Checkbox</div>
+            <div class="col-sm-10">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="gridCheck1">
+                    <label class="form-check-label" for="gridCheck1">
+                        Example checkbox
+                    </label>
+                </div>
+            </div>
+        </div>*@
+    </div>
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+
+
+
+    
