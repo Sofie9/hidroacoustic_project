@@ -32,38 +32,43 @@ namespace HidroacousticSygnals.Controllers
             double.TryParse(form["pressureAmplitude"], out double pressureAmplitude);
             double.TryParse(form["deep"], out double deep);
 
+            int.TryParse(form["time"], out int time);
+
 
             var ship = new CoreHelper.SourceShip(xSource, ySource);
             var gac = new CoreHelper.HydroacousticSystem(xSystem, ySystem);
 
-            var core = new CoreHelper(gac,ship,frequency,pressureAmplitude,deep);
+            var core = new CoreHelper(gac,ship,frequency,pressureAmplitude,deep, time);
 
 
             string filePath = @"C:\Users\sofy9\Desktop\test2.dat";
             WaveGenerator wave = null;
-            if (xSource == 0)
-            {
-                wave = new WaveGenerator();
-                wave.GenerateSimpleData();
-            }
-            else
-            {
-                wave = new WaveGenerator(core);
-            }
+            //if (xSource == 0)
+            //{
+            //    wave = new WaveGenerator();
+            //    //wave.GenerateSimpleData();
 
+            //    wave.AnyOneEx(filePath);
+            //}
+            //else
+            //{
+            //}
+
+            wave = new WaveGenerator(core);
             wave.Save(filePath);
+
             SoundPlayer player = new SoundPlayer(filePath);
             player.Play();
             //SoundPlayer player = new SoundPlayer(filePath);
-            var bytes = new byte[0];
-            using (var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
-            {
-                var br = new BinaryReader(fs);
-                long numBytes = new FileInfo(filePath).Length;
-                bytes = br.ReadBytes((int)numBytes);
+            //var bytes = new byte[0];
+            //using (var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+            //{
+            //    var br = new BinaryReader(fs);
+            //    long numBytes = new FileInfo(filePath).Length;
+            //    bytes = br.ReadBytes((int)numBytes);
 
-            }
-            return File(bytes, "audio/dat", "callrecording.dat");
+            //}
+            return new FilePathResult(filePath, "audio/dat");
             //return RedirectToAction("Index");
         }
         public ActionResult About()

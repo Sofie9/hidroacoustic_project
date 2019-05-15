@@ -7,26 +7,30 @@ namespace HidroacousticSygnals.Core
 {
     public class CoreHelper
     {
-        
+        public int MaxCountOfRay = 5;
+        public static double _alfaBorder = Math.Sin(_alfa);
+        public static int _alfa = 1 / (1450 / 343);
 
+        public double WaveLenght => this.Frequency * (1 / this.Frequency);
         public double Frequency { get; set; }
         public double Amplitude { get; set; }
         public double SeaDeep { get; set; }
-
+        public int TimeSec { get; set; }
         public HydroacousticSystem HSystem { get; set; }
         public SourceShip Ship { get; set; }
 
-        public CoreHelper(HydroacousticSystem system, SourceShip ship, double freq, double amplitude, double deep)
+        public CoreHelper(HydroacousticSystem system, SourceShip ship, double freq, double amplitude, double deep, int time)
         {
             this.HSystem = system;
             this.Ship = ship;
             this.Amplitude = amplitude;
             this.Frequency = freq;
             this.SeaDeep = deep;
+            this.TimeSec = time * 60;
         }
         
        // public double Pressure => this.Amplitude * Math.Cos(2 * Math.PI * this.Frequency * this.R);
-        protected internal double GetR1(SourceShip ship)
+        protected internal double GetRFirst(SourceShip ship)
         {
             //((HSystem.x - ship.x) ^ 2 + (HSystem.y - ship.y) ^ 2 + (HSystem.z- ship.z) ^ 2) ^ (1 / 2);
             return ((HSystem.x - ship.x) ^ 2 + (HSystem.y - ship.y) ^ 2)  ^ (1 / 2);
