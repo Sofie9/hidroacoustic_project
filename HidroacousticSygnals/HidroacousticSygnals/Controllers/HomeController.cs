@@ -18,7 +18,19 @@ namespace HidroacousticSygnals.Controllers
 
         public ActionResult GenerateSound(FormCollection form)
         {
-            
+            var core = this._initCore(form);
+            var generator = new WaveGenerator(core);
+            if (generator.GenerateAndSave())
+            {
+                SoundPlayer player = new SoundPlayer(WaveGenerator.filePath);
+                player.Play();
+            }
+
+            return new FilePathResult(WaveGenerator.filePath, "audio/dat");
+        }
+
+        private CoreHelper _initCore(FormCollection form)
+        {
             int.TryParse(form["xSource"], out int xSource);
             int.TryParse(form["ySource"], out int ySource);
             int.TryParse(form["zSource"], out int zSource);
@@ -35,54 +47,11 @@ namespace HidroacousticSygnals.Controllers
             int.TryParse(form["time"], out int time);
 
 
-            var ship = new CoreHelper.SourceShip(xSource, ySource);
-            var gac = new CoreHelper.HydroacousticSystem(xSystem, ySystem);
+            var ship = new CoreHelper.SourceShip(xSource, ySource, zSource);
+            var gac = new CoreHelper.HydroacousticSystem(xSystem, ySystem, zSystem);
 
-            var core = new CoreHelper(gac,ship,frequency,pressureAmplitude,deep, time);
+            return new CoreHelper(gac, ship, frequency, pressureAmplitude, deep, time);
 
-
-            string filePath = @"C:\Users\sofy9\Desktop\test2.dat";
-            WaveGenerator wave = null;
-            //if (xSource == 0)
-            //{
-            //    wave = new WaveGenerator();
-            //    //wave.GenerateSimpleData();
-
-            //    wave.AnyOneEx(filePath);
-            //}
-            //else
-            //{
-            //}
-
-            wave = new WaveGenerator(core);
-            wave.Save(filePath);
-
-            SoundPlayer player = new SoundPlayer(filePath);
-            player.Play();
-            //SoundPlayer player = new SoundPlayer(filePath);
-            //var bytes = new byte[0];
-            //using (var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
-            //{
-            //    var br = new BinaryReader(fs);
-            //    long numBytes = new FileInfo(filePath).Length;
-            //    bytes = br.ReadBytes((int)numBytes);
-
-            //}
-            return new FilePathResult(filePath, "audio/dat");
-            //return RedirectToAction("Index");
-        }
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
         }
     }
 }

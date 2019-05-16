@@ -154,12 +154,15 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Core\CoreHelper.cs" />
-    <Compile Include="Core\WaveGenerator.cs" />
+    <Compile Include="Core\WaveDetails\WaveDataChunk.cs" />
+    <Compile Include="Core\WaveDetails\WaveFormatChunk.cs" />
+    <Compile Include="Core\WaveDetails\WaveGenerator.cs" />
+    <Compile Include="Core\WaveDetails\WaveHeader.cs" />
+    <Compile Include="Core\WaveDetails\WaveStructure.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Core\SoundHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
