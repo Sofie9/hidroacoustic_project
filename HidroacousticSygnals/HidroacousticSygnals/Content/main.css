@@ -1,0 +1,12 @@
+﻿.content-container {
+    display: grid;
+    grid-template-columns: 60px 60px 60px;
+    grid-template-rows: auto;
+    -o-justify-content: space-between;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+}
+.sbm-btn {
+    float: left;
+    padding-top: 50px;
+}
