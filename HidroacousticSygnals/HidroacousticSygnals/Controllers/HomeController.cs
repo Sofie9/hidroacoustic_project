@@ -26,6 +26,7 @@ namespace HidroacousticSygnals.Controllers
                 player.Play();
             }
 
+            ViewBag.FileName = WaveGenerator.filePath;
             return new FilePathResult(WaveGenerator.filePath, "audio/dat");
         }
 

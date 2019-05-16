@@ -28,13 +28,22 @@ namespace HidroacousticSygnals.Core
             this.Amplitude = amplitude;
             this.Frequency = freq;
             this.SeaDeep = deep;
-            this.TimeSec = time * 60;
+            this.TimeSec = time ;
         }
 
-        public double GetWaveLength(int n)
+        public double GetWaveLength(int n, int? hardSign = null)
         {
-            var insidePow = Math.Round(this.HSystem.y + this.Ship.y - 2 * ((n <= 0 ? -1 : 1) * n) * this.SeaDeep, 4);
-            return Math.Pow(insidePow,2);
+            double insidePow;
+            if (hardSign != null)
+            {
+                insidePow = Math.Round(this.HSystem.y + this.Ship.y - 2 * ((hardSign.Value) * n) * this.SeaDeep, 4);
+            }
+            else
+            {
+                insidePow = Math.Round(this.HSystem.y + this.Ship.y - 2 * ((n <= 0 ? -1 : 1) * n) * this.SeaDeep, 4);
+            }
+
+            return Math.Pow(insidePow,1/2);
         }
 
         public static double GetRayLength(SourceShip ship, HydroacousticSystem gas)
