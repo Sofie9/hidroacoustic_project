@@ -27,7 +27,7 @@ namespace HidroacousticSygnals.Core
             sChunkID = "fmt ";
             dwChunkSize = 16;
             wFormatTag = 1;
-            wChannels = 2;
+            wChannels = 4;
             dwSamplesPerSec = (uint) c.Frequency;
             wBitsPerSample = 16;
             wBlockAlign = (ushort)(wChannels * (wBitsPerSample / 8));

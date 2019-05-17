@@ -45,11 +45,14 @@ namespace HidroacousticSygnals.Controllers
             double.TryParse(form["pressureAmplitude"], out double pressureAmplitude);
             double.TryParse(form["deep"], out double deep);
 
+
+            int.TryParse(form["zP"], out int zP);
+
             int.TryParse(form["time"], out int time);
 
 
-            var ship = new CoreHelper.SourceShip(xSource, ySource, zSource);
-            var gac = new CoreHelper.HydroacousticSystem(xSystem, ySystem, zSystem);
+            var ship = new CoreHelper.SourceShip(xSource, ySource, zSource, zP);
+            var gac = new CoreHelper.HydroacousticSystem(xSystem, ySystem, zSystem, zP);
 
             return new CoreHelper(gac, ship, frequency, pressureAmplitude, deep, time);
 
