@@ -22,13 +22,13 @@ namespace HidroacousticSygnals.Core
         /// Channels: 4
         /// Bit depth: 16-bit
         /// </summary>
-        public WaveFormatChunk()
+        public WaveFormatChunk(CoreHelper c)
         {
             sChunkID = "fmt ";
             dwChunkSize = 16;
             wFormatTag = 1;
-            wChannels = 2;
-            dwSamplesPerSec = 2048;
+            wChannels = 4;
+            dwSamplesPerSec = (uint) c.Frequency;
             wBitsPerSample = 16;
             wBlockAlign = (ushort)(wChannels * (wBitsPerSample / 8));
             dwAvgBytesPerSec = dwSamplesPerSec * wBlockAlign;

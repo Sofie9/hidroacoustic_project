@@ -38,32 +38,44 @@
                     </div>
 
                 </div>
-            <div class="form-group row">
-                <label class="col-sm-4 col-form-label">Частота излучения (w)</label>
-                <div class="col-sm-6">
-                    <input type="number" class="form-control" name="frequency" placeholder="frequency">
+                
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Координата поверхности z</label>
+                    <div class="col-sm-3 content-container">
+                        <div>
+                            <input type="number" class="form-control" name="zP" placeholder="x">
+                        </div>
+                       
+                    </div>
+
                 </div>
-            </div>
-            <div class="form-group row">
-            <label class="col-sm-4 col-form-label">Время</label>
-            <div class="col-sm-6">
-                <input type="number" class="form-control" name="time" placeholder="time">
-            </div>
-            </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Частота излучения (w)</label>
+                    <div class="col-sm-6">
+                        <input type="number" class="form-control" name="frequency" placeholder="frequency">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Время</label>
+                    <div class="col-sm-6">
+                        <input type="number" class="form-control" name="time" placeholder="time">
+                    </div>
+                </div>
          
-            <div class="form-group row">
-                <label class="col-sm-4 col-form-label">Глубина моря (h)</label>
-                <div class="col-sm-6">
-                    <input type="number" class="form-control" name="deep" placeholder="Deep">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Глубина моря (h)</label>
+                    <div class="col-sm-6">
+                        <input type="number" class="form-control" name="deep" placeholder="Deep">
+                    </div>
                 </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-sm-8 sbm-btn">
-                    <button type="submit" class="btn btn-primary">Generate Hidroacoustic Wave</button>
+                <div class="form-group row">
+                    <div class="col-sm-8 sbm-btn">
+                        <button type="submit" class="btn btn-primary">Generate Hidroacoustic Wave</button>
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
         </div>
+       
         @*<div class="col-md-4">
             <h2>Get more libraries</h2>
             <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
@@ -110,10 +122,98 @@
                 </div>
             </div>
         </div>*@
+        
     </div>
+    @*<input type="file" id="thefile" accept="audio/dat" />
+    <small class="copy">&copy; @DateTime.Now.Year -Sofia Stepaniuk</small>*@
+   
+    
+    @*<audio id='audio' controls autoplay>
+        <source src="" type="audio/wav" />
+        Your browser does not support the audio element.
+    </audio>*@
+   
 </div>
 
+<div col="sm-12">
+    <div id="content">
+        <canvas id="canvas"></canvas>
+        <audio id="audio" controls></audio>
+    </div>
+</div>
+<script>
+    function readSingleFile(e) {
+        var file = e.target.files[0];
+        if (!file) {
+            return;
+        }
+        var reader = new FileReader();
+        reader.onload = function() {
+            //var file = document.getElementById("thefile");
+            var audio = document.getElementById("audio");
+            audio.controls = true;
+                //var files = this.files;
+                audio.src = URL.createObjectURL(file);
+                audio.load();
+                audio.play();
+                var context = new AudioContext();
+                var src = context.createMediaElementSource(audio);
+                var analyser = context.createAnalyser();
 
+                var canvas = document.getElementById("canvas");
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                var ctx = canvas.getContext("2d");
 
+                src.connect(analyser);
+                analyser.connect(context.destination);
 
+                analyser.fftSize = 256;
+
+                var bufferLength = analyser.frequencyBinCount;
+                console.log(bufferLength);
+
+                var dataArray = new Uint8Array(bufferLength);
+
+                var WIDTH = canvas.width;
+                var HEIGHT = canvas.height;
+
+                var barWidth = (WIDTH / bufferLength) * 2.5;
+                var barHeight;
+                var x = 0;
+
+                function renderFrame() {
+                    requestAnimationFrame(renderFrame);
+
+                    x = 0;
+
+                    analyser.getByteFrequencyData(dataArray);
+
+                    ctx.fillStyle = "#000";
+                    ctx.fillRect(0, 0, WIDTH, HEIGHT);
+
+                    for (var i = 0; i < bufferLength; i++) {
+                        barHeight = dataArray[i];
+
+                        var r = barHeight + (25 * (i / bufferLength));
+                        var g = 250 * (i / bufferLength);
+                        var b = 50;
+
+                        ctx.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
+                        ctx.fillRect(x, HEIGHT - barHeight, barWidth, barHeight);
+
+                        x += barWidth + 1;
+                    }
+                }
+
+                audio.play();
+                renderFrame();
+        };
+        reader.readAsText(file);
+    }
+
+   
+    document.getElementById('thefile')
+        .addEventListener('change', readSingleFile, false);
     
+</script>

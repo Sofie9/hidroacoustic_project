@@ -10,3 +10,25 @@
     float: left;
     padding-top: 50px;
 }
+#thefile {
+    z-index: 100;
+}
+
+#canvas {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 30%;
+}
+
+audio {
+    
+    width: calc(100% - 20px);
+}
+.jumbotron {
+    background: rgba(141, 141, 125, 0.56);
+}
+.copy {
+    text-align: right;
+}
