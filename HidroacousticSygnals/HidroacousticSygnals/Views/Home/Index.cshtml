@@ -9,14 +9,14 @@
             <form method="post"  action="@Url.Action("GenerateSound")">
             
                 <div class="form-group row">
-                    <label class="col-sm-4 col-form-label">Координаты источника(x,y,z)</label>
+                    <label class="col-sm-4 col-form-label">Координатa источника(z)</label>
                     <div class="col-sm-3 content-container">
-                        <div>
+                        @*<div>
                             <input type="number" class="form-control" name="xSource" placeholder="x">
                         </div>
                         <div>
                             <input type="number" class="form-control" name="ySource" placeholder="y">
-                        </div>
+                        </div>*@
                         <div>
                             <input type="number" class="form-control" name="zSource" placeholder="z">
                         </div>
@@ -39,16 +39,7 @@
 
                 </div>
                 
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label">Координата поверхности z</label>
-                    <div class="col-sm-3 content-container">
-                        <div>
-                            <input type="number" class="form-control" name="zP" placeholder="x">
-                        </div>
-                       
-                    </div>
-
-                </div>
+              
                 <div class="form-group row">
                     <label class="col-sm-4 col-form-label">Частота излучения (w)</label>
                     <div class="col-sm-6">
