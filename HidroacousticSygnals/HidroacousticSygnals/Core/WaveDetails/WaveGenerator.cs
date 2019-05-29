@@ -46,6 +46,7 @@ namespace HidroacousticSygnals.Core
 
             //core.getBorders(out int top,out int bottom);
             //core.HSystem.r = (int) Math.Sqrt(Math.Pow(core.R0, 2) - Math.Pow(a, 2));
+
             try
             {
                 
@@ -129,6 +130,7 @@ namespace HidroacousticSygnals.Core
                     var Vx = core.GetOscillatorySpeed(t, resVector, resVector.X);
                     var Vy = 0;
                     var Vz = core.GetOscillatorySpeed(t, resVector,resVector.Y);
+
 
                     //var Vy = Math.Round(Math.Sin(core.Frequency * (i / core.Frequency) + acrtgFi) * (core.HSystem.y / firstRayLength),4);
                     //var Vz = Math.Round(Math.Sin(core.Frequency * (i / core.Frequency) + acrtgFi) * (core.HSystem.z / firstRayLength),4);

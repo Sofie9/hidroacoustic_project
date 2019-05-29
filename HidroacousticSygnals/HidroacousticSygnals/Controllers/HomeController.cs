@@ -49,6 +49,7 @@ namespace HidroacousticSygnals.Controllers
             var ship = new CoreHelper.SourceShip(zSource);
             var gac = new CoreHelper.HydroacousticSystem(xSystem, ySystem, zSystem);
 
+
             return new CoreHelper(gac, ship, frequency, 16000, deep, time);
 
         }

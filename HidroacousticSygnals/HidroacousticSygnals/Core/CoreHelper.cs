@@ -57,6 +57,45 @@ namespace HidroacousticSygnals.Core
         //    topBorder = n4 + n1;
         //    bottomBorder = n3 + n2;
         //}
+        //private double constPartPov
+        //{
+        //    get
+        //    {
+        //        return Math.Tan(Math.Asin(1/(1450/335)));
+        //    }
+        //}
+        //private double constPartDno
+        //{
+        //    get
+        //    {
+        //        return Math.Tan(Math.Asin(1 / (1450 / 1000)));
+        //    }
+        //}
+        //public double R0
+        //{
+        //    get
+        //    {
+        //        return CoreHelper.GetRayLength(this.Ship, this.HSystem);
+        //    }
+        //}
+
+        //public void getBorders(out int topBorder, out int bottomBorder)
+        //{
+            
+        //    var b0P = this.Ship.j * this.constPartPov;
+        //    var b1p = (Math.Abs(-2 * this.SeaDeep + this.Ship.j) * this.constPartPov - b0P) / 2;
+        //    var n0p = (int) ((R0 - b0P) / b1p) + 1;
+        //    var n1 = (int)n0p / 2;
+        //    var n2 = n0p - n1;
+
+        //    var b0d = (this.SeaDeep - Math.Abs(this.Ship.j)) * constPartDno;
+        //    var b1d = Math.Abs(-2 * this.SeaDeep - this.Ship.j) * constPartDno - b0d;
+        //    var n0d = (int) ((this.R0 - b0d) / b1d) + 1;
+        //    var n3 = n0d / 2;
+        //    var n4 = n0d - n3;
+        //    topBorder = n4 + n1;
+        //    bottomBorder = n3 + n2;
+        //}
         public CoreHelper(HydroacousticSystem system, SourceShip ship, double freq, double amplitude, double deep, int time)
         {
             this.HSystem = system;
@@ -65,12 +104,12 @@ namespace HidroacousticSygnals.Core
             this.Frequency = freq;
             this.SeaDeep = deep;
             this.TimeSec = time * 60 ;
+
         }
 
         public double GetWaveLength(int n, int? hardSign = null)
         {
             double insidePow;
-
             if (hardSign != null)
             {
                 insidePow = Math.Round((this.HSystem.z + (hardSign.Value) * this.Ship.z) - 2 * n * this.SeaDeep, 4);
@@ -81,6 +120,7 @@ namespace HidroacousticSygnals.Core
             }
 
             return Math.Pow(insidePow, 2);
+
         }
 
         public static double GetRayLength(SourceShip ship, HydroacousticSystem gas)
@@ -96,7 +136,6 @@ namespace HidroacousticSygnals.Core
             //var resVectorLength = Math.Sqrt(Math.Pow(sumVector.X, 2) + Math.Pow(sumVector.Y,2));
             var anglePart = this.Frequency*(2*Math.PI) * (t) + acrtgFi;
 
-
             return Math.Round(Math.Sin(anglePart) * ((param) / R0), 4);
         }
         // public double Pressure => this.Amplitude * Math.Cos(2 * Math.PI * this.Frequency * this.R);
@@ -111,12 +150,13 @@ namespace HidroacousticSygnals.Core
             //public double a { get; set; }
             //public double b { get; set; }
             public HydroacousticSystem(int x, int y, int z)
+
             {
                 this.x = x;
                 this.y = y;
                 this.z = z;
                 this.r = Math.Sqrt(Math.Pow(x,2)+ Math.Pow(y,2));
-                //this.a = Math.Sqrt(Math.Pow(r, 2));
+
             }
         }
         public class SourceShip
@@ -135,6 +175,7 @@ namespace HidroacousticSygnals.Core
                 this.z = z;
 
                 //this.j = (int) Math.Abs(zP - z) * -1;
+
                 this.r = 0;
             }
         }
