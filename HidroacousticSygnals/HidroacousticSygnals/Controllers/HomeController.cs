@@ -32,8 +32,6 @@ namespace HidroacousticSygnals.Controllers
 
         private CoreHelper _initCore(FormCollection form)
         {
-            int.TryParse(form["xSource"], out int xSource);
-            int.TryParse(form["ySource"], out int ySource);
             int.TryParse(form["zSource"], out int zSource);
 
             int.TryParse(form["xSystem"], out int xSystem);
@@ -42,19 +40,17 @@ namespace HidroacousticSygnals.Controllers
 
 
             double.TryParse(form["frequency"], out double frequency);
-            double.TryParse(form["pressureAmplitude"], out double pressureAmplitude);
             double.TryParse(form["deep"], out double deep);
 
-
-            int.TryParse(form["zP"], out int zP);
 
             int.TryParse(form["time"], out int time);
 
 
-            var ship = new CoreHelper.SourceShip(xSource, ySource, zSource, zP);
-            var gac = new CoreHelper.HydroacousticSystem(xSystem, ySystem, zSystem, zP);
+            var ship = new CoreHelper.SourceShip(zSource);
+            var gac = new CoreHelper.HydroacousticSystem(xSystem, ySystem, zSystem);
 
-            return new CoreHelper(gac, ship, frequency, pressureAmplitude, deep, time);
+
+            return new CoreHelper(gac, ship, frequency, 16000, deep, time);
 
         }
     }
