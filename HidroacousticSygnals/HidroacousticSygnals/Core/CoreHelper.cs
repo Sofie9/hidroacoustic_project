@@ -15,6 +15,8 @@ namespace HidroacousticSygnals.Core
         public double Frequency { get; set; }
         public double Amplitude { get; set; }
         public double SeaDeep { get; set; }
+        public double Angle { get; set; }
+
         public int TimeSec { get; set; }
         public HydroacousticSystem HSystem { get; set; }
         public SourceShip Ship { get; set; }
@@ -96,7 +98,7 @@ namespace HidroacousticSygnals.Core
         //    topBorder = n4 + n1;
         //    bottomBorder = n3 + n2;
         //}
-        public CoreHelper(HydroacousticSystem system, SourceShip ship, double freq, double amplitude, double deep, int time)
+        public CoreHelper(HydroacousticSystem system, SourceShip ship, double freq, double amplitude, double deep, int time, double angle)
         {
             this.HSystem = system;
             this.Ship = ship;
@@ -104,7 +106,7 @@ namespace HidroacousticSygnals.Core
             this.Frequency = freq;
             this.SeaDeep = deep;
             this.TimeSec = time * 60 ;
-
+            this.Angle = angle;
         }
 
         public double GetWaveLength(int n, int? hardSign = null)
@@ -128,15 +130,20 @@ namespace HidroacousticSygnals.Core
             return Math.Sqrt(Math.Pow(gas.x - ship.x, 2) + Math.Pow(gas.y - ship.y, 2) + Math.Pow(gas.z - ship.z, 2));
         }
 
-        public double GetOscillatorySpeed(int t,Vector2 sumVector, float param)
+        public double GetOscillatorySpeed(int t,Vector2 sumVector, float param = 0, bool forZ = false)
         {
             //var firstRayLength = CoreHelper.GetRayLength(this.Ship, this.HSystem);
-            var angle = sumVector.Y / sumVector.X;
-            var acrtgFi = Math.Atan(angle);
+            var calculateAngle = (180 / 2 * Math.PI) + ((forZ ? this.Angle : 0) * Math.PI / 180);
+            var angle = (sumVector.Y / sumVector.X);
+            var acrtgFi = Math.Atan(angle * calculateAngle);
             //var resVectorLength = Math.Sqrt(Math.Pow(sumVector.X, 2) + Math.Pow(sumVector.Y,2));
             var anglePart = this.Frequency*(2*Math.PI) * (t) + acrtgFi;
 
+
+
             return Math.Round(Math.Sin(anglePart) * ((param) / R0), 4);
+
+
         }
         // public double Pressure => this.Amplitude * Math.Cos(2 * Math.PI * this.Frequency * this.R);
        

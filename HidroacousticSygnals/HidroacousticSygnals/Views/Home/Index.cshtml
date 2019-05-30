@@ -9,7 +9,7 @@
             <form method="post"  action="@Url.Action("GenerateSound")">
             
                 <div class="form-group row">
-                    <label class="col-sm-4 col-form-label">Координатa источника(z)</label>
+                    <label class="col-sm-4 col-form-label">Координата випромінювача z </label>
                     <div class="col-sm-3 content-container">
                         @*<div>
                             <input type="number" class="form-control" name="xSource" placeholder="x">
@@ -24,7 +24,7 @@
 
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-4 col-form-label">Координаты ГАС(x,y,z)</label>
+                    <label class="col-sm-4 col-form-label">Координати</label>
                     <div class="col-sm-3 content-container">
                         <div>
                             <input type="number" class="form-control" name="xSystem" placeholder="x">
@@ -40,22 +40,29 @@
                 </div>
 
                 <div class="form-group row">
-                    <label class="col-sm-4 col-form-label">Частота излучения (w)</label>
+                    <label class="col-sm-4 col-form-label">Частота випромінювання</label>
                     <div class="col-sm-6">
                         <input type="number" class="form-control" name="frequency" placeholder="frequency">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-4 col-form-label">Время</label>
+                    <label class="col-sm-4 col-form-label">Час</label>
                     <div class="col-sm-6">
                         <input type="number" class="form-control" name="time" placeholder="time">
                     </div>
                 </div>
          
                 <div class="form-group row">
-                    <label class="col-sm-4 col-form-label">Глубина моря (h)</label>
+                    <label class="col-sm-4 col-form-label">Глибина моря</label>
                     <div class="col-sm-6">
                         <input type="number" class="form-control" name="deep" placeholder="Deep">
+                    </div>
+                </div>
+                
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Кут нахилу дна</label>
+                    <div class="col-sm-6">
+                        <input type="number" class="form-control" name="angle" placeholder="Angle">
                     </div>
                 </div>
                 <div class="form-group row">

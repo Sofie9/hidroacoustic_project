@@ -20,11 +20,11 @@ namespace HidroacousticSygnals.Controllers
         {
             var core = this._initCore(form);
             var generator = new WaveGenerator(core);
-            if (generator.GenerateAndSave())
-            {
-                SoundPlayer player = new SoundPlayer(WaveGenerator.filePath);
-                player.Play();
-            }
+            //if (generator.GenerateAndSave())
+            //{
+            //    SoundPlayer player = new SoundPlayer(WaveGenerator.filePath);
+            //    player.Play();
+            //}
 
             ViewBag.FileName = WaveGenerator.filePath;
             return new FilePathResult(WaveGenerator.filePath, "audio/dat");
@@ -41,6 +41,7 @@ namespace HidroacousticSygnals.Controllers
 
             double.TryParse(form["frequency"], out double frequency);
             double.TryParse(form["deep"], out double deep);
+            double.TryParse(form["angle"], out double angle);
 
 
             int.TryParse(form["time"], out int time);
@@ -50,7 +51,7 @@ namespace HidroacousticSygnals.Controllers
             var gac = new CoreHelper.HydroacousticSystem(xSystem, ySystem, zSystem);
 
 
-            return new CoreHelper(gac, ship, frequency, 16000, deep, time);
+            return new CoreHelper(gac, ship, frequency, 16000, deep, time, angle);
 
         }
     }

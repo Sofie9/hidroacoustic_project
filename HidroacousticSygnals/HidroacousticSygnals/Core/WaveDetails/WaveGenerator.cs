@@ -37,8 +37,9 @@ namespace HidroacousticSygnals.Core
         }
         private WaveDataChunk GenerateData(WaveFormatChunk format)
         {
+
             var core = this.core;
-            uint numSamples = (uint) (this.core.SamplingFrequency * this.core.TimeSec);
+            uint numSamples = (uint) (this.core.SamplingFrequency * this.core.TimeSec) * 4;
             var dataChunk = new WaveDataChunk(numSamples);
             var k = (core.Frequency * (2*Math.PI) )/ 1450;
             //var a = Math.Sqrt(Math.Pow(core.Ship.j - core.HSystem.j, 2));
@@ -53,44 +54,46 @@ namespace HidroacousticSygnals.Core
                 var resVector = new Vector2(0,0);
                 for (int i = 0; i < numSamples; i++)
                 {
+                    if (i > 0)
+                    {
+                        i += 4;
+
+                    }
+
                     var t = i / this.core.SamplingFrequency;
                     double p = 0;
 
-                    var angleB = this.core.constPartPov+1;
+                    var betaDno = this.core.constPartDno + 1;
+                    var betaPov = this.core.constPartPov + 1;
                     var bottomBorder = 1;
                     var topBorder = 2;
 
                     #region Bottom border of sum
-                    while (angleB > this.core.constPartDno)
+                    while (betaDno > this.core.constPartDno)
                     {
                         var b = bottomBorder % 2 != 0
                             ? 2 * bottomBorder * this.core.SeaDeep - this.core.Ship.z - this.core.HSystem.z
                             : 2 * bottomBorder * this.core.SeaDeep + this.core.Ship.z + this.core.HSystem.z;
 
                         bottomBorder++;
-                        angleB = Math.Atan(Math.Sqrt(Math.Pow(this.core.HSystem.r, 2)) / b);
+                        betaDno = Math.Atan(Math.Sqrt(Math.Pow(this.core.HSystem.r, 2)) / b);
                     }
                     #endregion
 
                     #region Top border of sum
-                    while (angleB > this.core.constPartPov)
+                    while (betaPov > this.core.constPartPov)
                     {
-                        var b = bottomBorder % 2 != 0
+                        var b = topBorder % 2 != 0
                             ? 2 * topBorder * this.core.SeaDeep + this.core.Ship.z - this.core.HSystem.z
                             : topBorder * this.core.SeaDeep + this.core.Ship.z + this.core.HSystem.z;
 
                         topBorder++;
-                        angleB = Math.Atan(Math.Sqrt(Math.Pow(this.core.HSystem.r, 2)) / b);
+                        betaPov = Math.Atan(Math.Sqrt(Math.Pow(this.core.HSystem.r, 2)) / b);
                     }
-
-
-
                     #endregion
 
 
-                    bottomBorder *= -1;
-
-                    for (var n = bottomBorder; n <= topBorder; n++)
+                    for (var n = -1*bottomBorder; n <= topBorder; n++)
                     {
                         var waveLength = core.GetWaveLength(n);
                        
@@ -129,7 +132,7 @@ namespace HidroacousticSygnals.Core
 
                     var Vx = core.GetOscillatorySpeed(t, resVector, resVector.X);
                     var Vy = 0;
-                    var Vz = core.GetOscillatorySpeed(t, resVector,resVector.Y);
+                    var Vz = core.GetOscillatorySpeed(t, resVector, resVector.X, true);
 
 
                     //var Vy = Math.Round(Math.Sin(core.Frequency * (i / core.Frequency) + acrtgFi) * (core.HSystem.y / firstRayLength),4);
@@ -141,7 +144,7 @@ namespace HidroacousticSygnals.Core
                     dataChunk.shortArray[i+2] = (short)Convert.ToInt16(Math.Round(Vz));
                     dataChunk.shortArray[i+3] = (short)Convert.ToInt16(Math.Round(p));
 
-                    i += 4;
+                    
                 }
 
             }
